@@ -27,12 +27,10 @@ app.post("/app/new", (req, res) => {
 	const username = req.body.user
 	const password = md5(req.body.pass)
 
-	console.log(username, password)
-	
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES ('" + username + "', '" + password + "')")
 	const info = stmt.run()
 
-	res.status(201).json({ "message": info.changes + " record created: ID " + id + " (201)" })
+	res.status(201).json({ "message": info.changes + " record created: ID " + info.lastInsertRowid + " (201)" })
 })
 
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
